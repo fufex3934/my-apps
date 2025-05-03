@@ -2,7 +2,7 @@
 export default function Home() {
   return (
     
-  <div>
+  <div className="flex-grow">
     <h1 className="text-red-500">Hello Home</h1>
   </div>
   );
