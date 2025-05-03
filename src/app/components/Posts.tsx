@@ -6,7 +6,7 @@ import Link from "next/link";
 interface Post {
   id: string;
   title: string;
-  
+  body: string;
 }
 
 interface PostsProps {
@@ -14,8 +14,7 @@ interface PostsProps {
 }
 
 export default function Posts({ posts }: PostsProps) {
-  try {
-    const allPosts = use(posts);
+  const allPosts = use(posts);
     
     return (
       <ul className="space-y-4">
@@ -26,18 +25,10 @@ export default function Posts({ posts }: PostsProps) {
               className="hover:text-blue-500 transition-colors"
             >
               <h2 className="text-xl font-semibold text-gray-800">{post.title}</h2>
-             
+              <p className="text-gray-600 mt-2 line-clamp-2">{post.body}</p>
             </Link>
           </li>
         ))}
       </ul>
     );
-  } catch (error) {
-    console.error("Failed to load posts:", error);
-    return (
-      <div className="text-red-500 p-4 max-w-2xl mx-auto">
-        Failed to load posts. Please try again later.
-      </div>
-    );
-  }
 }
