@@ -12,6 +12,15 @@ export interface FormState {
     content?: string;
   };
 }
+
+export interface PostType {
+  _id: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export async function createPost(
   prevState: FormState,
   formData: FormData
@@ -48,10 +57,45 @@ export async function createPost(
   }
   redirect("/blog");
 }
-export async function deletePost(formData: FormData) {
-  "use server";
-  const id = formData.get("id");
 
-  //update data
-  //revalidate dat
+//Read all posts
+export async function getPosts(): Promise<PostType[]> {
+  await conectToB();
+  const posts = await Post.find().sort({ createdAt: -1 }).lean();
+  const serializedPosts = posts.map((post: any) => ({
+    ...post,
+    _id: post._id.toString(),
+    createdAt: post.createdAt.toISOString(),
+    updatedAt: post.updatedAt.toISOString(),
+  }));
+
+  return serializedPosts;
+}
+
+//read single post
+export async function getPost(id: string) {
+  const post = await Post.findById(id);
+  return post;
+}
+export async function updatePost(
+  id: string,
+
+  formData: FormData
+):Promise<void> {
+  // Validate first
+  const { title, content } = Object.fromEntries(formData);
+
+  try {
+    await conectToB();
+    await Post.findByIdAndUpdate(id, { title, content });
+    revalidatePath(`/blog/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+  redirect("/blog");
+}
+export async function deletePost(id: string) {
+  await Post.findByIdAndDelete(id);
+
+  revalidatePath(`/blog/${id}`);
 }
