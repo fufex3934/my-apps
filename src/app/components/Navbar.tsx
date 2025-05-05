@@ -21,14 +21,16 @@ function Navbar() {
           <Link href={"/blog"}>
             <li
               className={`hover:text-gray-300 ${
-                pathname.startsWith("/blog") ? "text-blue-400 font-bold" : ""
+                pathname === "/blog" ? "text-blue-400 font-bold" : ""
               }`}
             >
               Blog
             </li>
           </Link>
-          <Link href={"/"}>
-            <li>Home</li>
+          <Link href={"/blog/create"}>
+            <li  className={`hover:text-gray-300 ${
+                pathname === "/blog/create" ? "text-blue-400 font-bold" : ""
+              }`}>Create Post</li>
           </Link>
         </ul>
       </nav>
