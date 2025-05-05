@@ -81,8 +81,7 @@ export async function updatePost(
   id: string,
 
   formData: FormData
-):Promise<void> {
-  // Validate first
+): Promise<void> {
   const { title, content } = Object.fromEntries(formData);
 
   try {

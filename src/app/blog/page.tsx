@@ -2,7 +2,7 @@ import Posts from "../components/Posts";
 
 import { getPosts } from "../lib/action";
 export default async function Page() {
-  const posts = await getPosts()
+  const posts = await getPosts();
 
   return (
     <div className="container mx-auto py-8">
