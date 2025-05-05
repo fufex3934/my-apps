@@ -7,7 +7,7 @@ export default function BlogLayout({
 }) {
   return (
     <section className="flex-grow">
-      <h1>Blog Layout</h1>
+      
       {children}
     </section>
   );

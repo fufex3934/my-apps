@@ -16,7 +16,7 @@ export default function Form() {
   return (
     <form
       action={formAction}
-      className="bg-blue-200 max-w-4xl mx-auto flex flex-col p-4"
+      className="bg-white shadow-lg max-w-4xl mx-auto flex flex-col w-full p-4 mt-6"
     >
       <input
         type="text"

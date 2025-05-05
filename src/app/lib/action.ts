@@ -5,8 +5,6 @@ import { Post } from "../models/Post";
 import { redirect } from "next/navigation";
 
 export interface FormState {
-  success?: boolean;
-  error?: string | null;
   fieldErrors?: {
     title?: string;
     content?: string;
@@ -40,8 +38,6 @@ export async function createPost(
   if (state.fieldErrors?.title || state.fieldErrors?.content) {
     return {
       ...state,
-      success: false,
-      error: "Validation failed",
     };
   }
   try {
@@ -49,11 +45,7 @@ export async function createPost(
     await Post.create({ title, content });
     revalidatePath("/blog");
   } catch (error) {
-    return {
-      ...state,
-      success: false,
-      error: error instanceof Error ? error.message : "Operation failed",
-    };
+    console.log("Error occured", error);
   }
   redirect("/blog");
 }
